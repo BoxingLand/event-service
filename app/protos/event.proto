@@ -1,0 +1,321 @@
+syntax = "proto3";
+
+package event;
+
+service Event {
+  rpc CreateClub(CreateClubRequest) returns (CreateClubResponse) {}
+  rpc AddCoachToClub(AddCoachToClubRequest) returns (AddCoachToClubResponse) {}
+  rpc RemoveCoachToClub(RemoveCoachToClubRequest) returns (RemoveCoachToClubResponse) {}
+  rpc UpdateClub(UpdateClubRequest) returns (UpdateClubResponse) {}
+  rpc DeleteClub(DeleteClubRequest) returns (DeleteClubResponse) {}
+  rpc GetClubIDByName(GetClubIDByNameRequest) returns (GetClubIDByNameResponse) {}
+  rpc GetClubByName(GetClubByNameRequest) returns (GetClubResponse) {}
+  rpc GetClubByID(GetClubByIDRequest) returns (GetClubResponse) {}
+  rpc GetClubs(GetClubsRequest) returns (stream GetClubsResponse) {}
+  rpc GetClubCoachesID(GetClubCoachesIDRequest) returns (stream GetClubCoachesIDResponse) {}
+
+  rpc CreateCompetition(CreateCompetitionRequest) returns (CreateCompetitionResponse) {}
+  rpc AddBoxerToCompetition(AddBoxerToCompetitionRequest) returns (AddBoxerToCompetitionResponse) {}
+  rpc RemoveBoxerToCompetition(RemoveBoxerToCompetitionRequest) returns (RemoveBoxerToCompetitionResponse) {}
+  rpc UpdateCompetition(UpdateCompetitionRequest) returns (UpdateCompetitionResponse) {}
+  rpc DeleteCompetition(DeleteCompetitionRequest) returns (DeleteCompetitionResponse) {}
+  rpc GetCompetitions(GetCompetitionsRequest) returns (stream GetCompetitionsResponse) {}
+  rpc GetCompetitionByName(GetCompetitionByIDRequest) returns (GetCompetitionResponse) {}
+  rpc GetCompetitionByID(GetCompetitionByIDRequest) returns (GetCompetitionResponse) {}
+
+  rpc CreateFight(stream CreateFightRequest) returns (CreateFightResponse) {}
+  rpc SetWinner(SetWinnerRequest) returns (SetWinnerResponse) {}
+  rpc GetFightsCompetition(GetFightsCompetitionRequest) returns (stream GetFightResponse) {}
+  rpc GetFightsBoxer(GetFightsBoxerRequest) returns (stream GetFightResponse) {}
+//  rpc GetFightScore() returns (stream ) {}
+//  rpc GetJudgesIDFight() returns () {}
+//  rpc GetBoxerCountFight() returns () {}
+//  rpc GetBoxerWins() returns() {}
+//
+//
+//  rpc CreateScore() returns () {}
+//  rpc UpdateScore() returns () {}
+}
+
+
+// CreateClub
+message CreateClubRequest {
+  string coach_id = 1;
+  string name = 2;
+  optional string about = 3;
+}
+
+message CreateClubResponse {
+  string id = 1;
+}
+
+
+// AddCoachToClub
+message AddCoachToClubRequest {
+  string coach_id = 1;
+  string club_id = 2;
+}
+
+message AddCoachToClubResponse {
+  string message = 1;
+}
+
+
+//RemoveCoachToClub
+message RemoveCoachToClubRequest {
+  string coach_id = 1;
+  string club_id = 2;
+}
+
+message RemoveCoachToClubResponse {
+  string message = 1;
+}
+
+
+// UpdateClub
+message UpdateClubRequest {
+  string club_id = 1;
+  optional string name = 2;
+  optional string about = 3;
+}
+
+message UpdateClubResponse {
+  string message = 1;
+}
+
+
+// DeleteClub
+message DeleteClubRequest {
+  string club_id = 1;
+  string coach_id = 2;
+}
+
+message DeleteClubResponse {
+  string message = 1;
+}
+
+
+// GetClubIDByName
+message GetClubIDByNameRequest {
+  string name = 1;
+}
+
+message GetClubIDByNameResponse {
+  string club_id = 1;
+}
+
+
+//GetClubByName
+message GetClubByNameRequest {
+  string name = 1;
+}
+
+
+//GetClubByID
+message GetClubByIDRequest {
+  string club_id = 1;
+}
+
+
+message GetClubResponse {
+  string id = 1;
+  string name = 2;
+  optional string about = 3;
+}
+
+
+// GetClubs
+message GetClubsRequest {
+  int32 page = 1;
+  int32 page_size = 2;
+}
+
+message GetClubsResponse {
+  string id = 1;
+  string name = 2;
+}
+
+
+// GetClubCoachesID
+message GetClubCoachesIDRequest {
+  string club_id = 1;
+}
+
+message GetClubCoachesIDResponse {
+  string coach_id = 1;
+}
+
+
+// CreateCompetition
+message CreateCompetitionRequest {
+  string name = 1;
+  optional string about = 2;
+  optional float price = 3;
+  string date = 4;
+  optional float prize_pool = 5;
+  optional int32 limit_boxers = 6;
+  string country = 7;
+  string region = 8;
+  string city = 9;
+  string organizer_id = 10;
+}
+
+message CreateCompetitionResponse {
+  string id = 1;
+}
+
+
+// AddBoxerToCompetition
+message AddBoxerToCompetitionRequest {
+  string boxer_id = 1;
+  string competition_id = 2;
+}
+
+message AddBoxerToCompetitionResponse {
+  string message = 1;
+}
+
+
+// RemoveBoxerToCompetition
+message RemoveBoxerToCompetitionRequest {
+  string boxer_id = 1;
+  string competition_id = 2;
+}
+
+message RemoveBoxerToCompetitionResponse {
+  string message = 1;
+}
+
+
+// UpdateCompetition
+message UpdateCompetitionRequest {
+  string competition_id = 1;
+  optional string name = 2;
+  optional string about = 3;
+  optional float price = 4;
+  optional string date = 5;
+  optional float prize_pool = 6;
+  optional int32 limit_boxers = 7;
+  optional string country = 8;
+  optional string region = 9;
+  optional string city = 10;
+}
+
+message UpdateCompetitionResponse {
+  string message = 1;
+}
+
+
+// DeleteCompetition
+message DeleteCompetitionRequest {
+  string competition_id = 1;
+}
+
+message DeleteCompetitionResponse {
+  string message = 1;
+}
+
+
+// GetCompetitions
+message GetCompetitionsRequest {
+  optional float price = 1;
+  optional string date = 2;
+  optional float prize_pool = 3;
+  optional int32 limit_boxers = 4;
+  optional string country = 5;
+  optional string region = 6;
+  optional string city = 7;
+  int32 page = 8;
+  int32 page_size = 9;
+}
+
+message GetCompetitionsResponse {
+  string id = 1;
+  string name = 2;
+  string date = 5;
+  string country = 6;
+  string region = 7;
+  string city = 8;
+}
+
+
+// GetCompetitionByID
+message GetCompetitionByNameRequest {
+  string name = 1;
+}
+
+// GetCompetitionByID
+message GetCompetitionByIDRequest {
+  string competition_id = 1;
+}
+
+message GetCompetitionResponse {
+  string id = 1;
+  string name = 2;
+  optional string about = 3;
+  optional float price = 4;
+  string date = 5;
+  optional float prize_pool = 6;
+  optional int32 limit_boxers = 7;
+  string country = 8;
+  string region = 9;
+  string city = 10;
+}
+
+
+//CreateFight
+message CreateFightRequest {
+  string competition_id = 1;
+  string fighter_one = 2;
+  string fighter_two = 3;
+  string date = 4;
+}
+
+message CreateFightResponse {
+  string message = 1;
+}
+
+
+// SetWinner
+message SetWinnerRequest {
+  string id = 1;
+  string winner = 2;
+}
+
+message SetWinnerResponse {
+  string message = 1;
+}
+
+
+// GetFightsCompetition
+message GetFightsCompetitionRequest {
+  string competition_id = 1;
+}
+
+message GetFightResponse {
+  string fights_id = 1;
+  string fighter_one = 2;
+  string fighter_two = 3;
+  string winner = 4;
+  string date = 5;
+}
+
+
+// GetFightsBoxer
+message GetFightsBoxerRequest {
+  string boxer_id = 1;
+  optional string competition_id = 2;
+  optional string date = 3;
+}
+
+
+// GetFightScore
+message GetFightScoreRequest {
+  string fight_id = 1;
+}
+
+message GetFightScoreResponse {
+  string id = 1;
+  string score_value = 2;
+  string judge_id = 3;
+}

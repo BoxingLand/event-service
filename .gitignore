@@ -3,6 +3,15 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# YOYO Migrations
+yoyo.ini
+
+# Depends
+poetry.lock
+
+#logs
+logfile.log
+
 # C extensions
 *.so
 
